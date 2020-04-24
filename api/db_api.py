@@ -57,26 +57,26 @@ def execute(sql, isSelect=True):
         conn.close()
     return result
 
-def start_db():
+# def start_db():
 
-    # create a database connection
-    conn = create_connection()
+#     # create a database connection
+#     conn = create_connection()
 
-    # create tables
-    # if conn is not None:
-    #     user_table_sql = """ CREATE TABLE IF NOT EXISTS user (
-    #                         id integer PRIMARY KEY AUTOINCREMENT,
-    #                         age integer NOT NULL,
-    #                         name text NOT NULL
-    #                     ); """
-    #     create_table(conn, user_table_sql)
-    # else:
-    #     print("Error! cannot create the database connection.")
+#     create tables
+#     if conn is not None:
+#         user_table_sql = """ CREATE TABLE IF NOT EXISTS user (
+#                             id integer PRIMARY KEY AUTOINCREMENT,
+#                             age integer NOT NULL,
+#                             name text NOT NULL
+#                         ); """
+#         create_table(conn, user_table_sql)
+#     else:
+#         print("Error! cannot create the database connection.")
 
 # HTTP functions
 
 @app.route('/',methods=['GET'])
-def get():
+def index():
     return jsonify('hello World!')
 
 # Add new user
@@ -92,7 +92,7 @@ def post_users():
     return jsonify(user)
 
 # Update user
-@app.route('/user', methods=['PUT'])
+@app.route('/users', methods=['PUT'])
 def put_users():
     user = request.get_json()
     _id = user['id']
@@ -117,7 +117,7 @@ def get_users():
     return jsonify(users)
 
 # Delete user by id
-@app.route('/user/<_id>', methods=['DELETE'])
+@app.route('/users/<_id>', methods=['DELETE'])
 def delete_users(_id):
     sql = f"DELETE FROM user WHERE id = {int(_id)};"
     execute(sql, False)
